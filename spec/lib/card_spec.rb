@@ -33,6 +33,15 @@ RSpec.describe Teller::Card do
         expect { Teller::Card.parse(bad_suit) }.to raise_exception(Teller::Card::UnknownCard)
       end
     end
+
+    context "#to_s" do
+      let(:card) { Teller::Card.parse('AH') }
+
+      it "translates a card's suit and value back into a code string" do
+        expect(card.value).to eq 14
+        expect(card.to_s).to eq('AH')
+      end
+    end
   end
 
 end

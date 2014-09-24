@@ -15,6 +15,33 @@ module Teller
       raise UnknownCard.new("Unknown card #{value}-#{suit}") unless @value >= 2 && @suit >= 1 && @value <= 14 && @suit <= 4
     end
 
+    def suit_from_code
+      { 1 => "C",
+        2 => "D",
+        3 => "H",
+        4 => "S" }[suit]
+    end
+
+    def value_from_code
+      if value <= 9
+        value.to_s
+      else
+        { 10 => "T",
+          11 => "J",
+          12 => "Q",
+          13 => "K",
+          14 => "A" }[value]
+      end
+    end
+
+    def to_s
+      "#{value_from_code}#{suit_from_code}"
+    end
+    
+    def <=>(other)
+      value <=> other.value
+    end
+
     private
 
     def self.value_from_code(code)
